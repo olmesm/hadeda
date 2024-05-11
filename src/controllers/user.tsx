@@ -33,27 +33,33 @@ export const user = new Elysia({ prefix: "/user" })
   .get("/sign-up", ({ html }) => {
     return html(
       <Layout>
-        <form hx-post="/user/sign-up">
+        <div id="form-errors" class="pico-color-pink" />
+
+        <form
+          hx-post="/user/sign-up"
+          hx-ext="response-targets"
+          hx-target-error="#form-errors"
+        >
           <fieldset class="grid">
             <label for="firstName">
               First Name
-              <input id="firstName" name="firstName" />
+              <input required id="firstName" name="firstName" />
             </label>
             <label for="lastName">
               Last Name
-              <input id="lastName" name="lastName" />
+              <input required id="lastName" name="lastName" />
             </label>
           </fieldset>
 
           <fieldset class="grid">
             <label for="email">
               Email
-              <input id="email" name="email" />
+              <input required id="email" name="email" />
             </label>
 
             <label for="password">
               Password
-              <input type="password" id="password" name="password" />
+              <input required type="password" id="password" name="password" />
             </label>
           </fieldset>
 
@@ -64,39 +70,49 @@ export const user = new Elysia({ prefix: "/user" })
   })
   .post(
     "/sign-up",
-    async ({ html, set, body, db, cookie }) => {
-      const passwordHash = await Bun.password.hash(body.password)
+    async ({ set, body, db, cookie }) => {
+      try {
+        const passwordHash = await Bun.password.hash(body.password)
 
-      const user = await db.user.create({
-        data: {
-          email: body.email,
-          firstName: body.firstName,
-          lastName: body.lastName,
-          passwordHash,
-        },
-      })
+        const user = await db.user.create({
+          data: {
+            email: body.email,
+            firstName: body.firstName,
+            lastName: body.lastName,
+            passwordHash,
+          },
+        })
 
-      await sessionHelpers.create(cookie, user.id)
+        await sessionHelpers.create(cookie, user.id)
 
-      set.headers["hx-redirect"] = "/"
-      return <>OK</>
+        set.headers["hx-redirect"] = "/"
+        return <>OK</>
+      } catch (e) {
+        set.status = "Conflict"
+
+        return "Email already registered"
+      }
     },
     {
       body: t.Object({
         email: t.String({
           format: "email",
+          error: "Please enter a valid email",
         }),
         password: t.String({
           minLength: 8,
           maxLength: 64,
+          error: "Password should be 8 - 64 characters",
         }),
         firstName: t.String({
-          minLength: 3,
+          minLength: 2,
           maxLength: 32,
+          error: "Invalid first name",
         }),
         lastName: t.String({
-          minLength: 3,
+          minLength: 2,
           maxLength: 32,
+          error: "Invalid last name",
         }),
       }),
     },
@@ -104,16 +120,22 @@ export const user = new Elysia({ prefix: "/user" })
   .get("/sign-in", ({ html }) => {
     return html(
       <Layout>
-        <form hx-post="/user/sign-in">
+        <div id="form-errors" class="pico-color-pink" />
+
+        <form
+          hx-post="/user/sign-in"
+          hx-ext="response-targets"
+          hx-target-error="#form-errors"
+        >
           <fieldset class="grid">
             <label for="email">
               Email
-              <input id="email" name="email" />
+              <input required id="email" name="email" />
             </label>
 
             <label for="password">
               Password
-              <input type="password" id="password" name="password" />
+              <input required type="password" id="password" name="password" />
             </label>
           </fieldset>
 
@@ -124,20 +146,26 @@ export const user = new Elysia({ prefix: "/user" })
   })
   .post(
     "/sign-in",
-    async ({ html, set, body, db, cookie }) => {
+    async ({ set, body, db, cookie }) => {
       const user = await db.user.findFirst({
         where: {
           email: body.email,
         },
       })
-      if (!user) return
+      if (!user) {
+        set.status = "Unprocessable Content"
+        return "Invalid details"
+      }
 
       const isMatch = await Bun.password.verify(
         body.password,
         user?.passwordHash,
       )
 
-      if (!isMatch) return
+      if (!isMatch) {
+        set.status = "Unprocessable Content"
+        return "Invalid details"
+      }
 
       await sessionHelpers.create(cookie, user.id)
 
@@ -148,6 +176,7 @@ export const user = new Elysia({ prefix: "/user" })
       body: t.Object({
         email: t.String({
           format: "email",
+          error: "Please enter a valid email",
         }),
         password: t.String({
           minLength: 8,

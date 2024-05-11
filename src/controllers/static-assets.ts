@@ -1,14 +1,9 @@
 import { Elysia } from "elysia"
 import { staticPlugin } from "@elysiajs/static"
+import { scripts } from "../components/layout"
 
-export const staticAssets = new Elysia()
-  .use(staticPlugin())
-  .get("/assets/htmx.js", () =>
-    Bun.file("node_modules/htmx.org/dist/htmx.min.js"),
-  )
-  .get("/assets/alpinejs.js", () =>
-    Bun.file("node_modules/alpinejs/dist/cdn.min.js"),
-  )
-  .get("/assets/pico.css", () =>
-    Bun.file("node_modules/@picocss/pico/css/pico.min.css"),
-  )
+export const staticAssets = scripts.reduce((elysia, script) => {
+  const path: string = script.url ?? "/assets/" + script.path.split("/").at(-1)!
+
+  return elysia.get(path, () => Bun.file(script.path))
+}, new Elysia().use(staticPlugin()))
