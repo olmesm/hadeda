@@ -31,8 +31,17 @@ cp .env.example .env
 
 # Install dependencies
 bun install
+
+# Create a db
+bun run db:push
+
 # Run the development server
 bun dev
+
+--- Other scripts
+
+# Format schema and code
+bun fmt
 ```
 
 ### DB
@@ -44,8 +53,6 @@ bunx prisma migrate dev --name "init" --preview-feature
 # Schema push
 bun run db:push
 
-# Schema fmt
-bunx prisma format
 
 # Studio
 bun run db:studio
@@ -62,12 +69,13 @@ TBD
 ## Structure
 
 - src - Any file that associate with development of Elysia server.
-  - index.ts - Entry point for your Elysia server, ideal place for setting global plugin
-  - services - Composed of various plugins to be used as a Service Locator
+  - components - Reusable JSX components
   - controllers - Instances which encapsulate multiple endpoints
-  - libs - Utility functions
   - models - Data Type Objects (DTOs) for Elysia instance
-  - types - Shared TypeScript type if needed
+  - services - Composed of various plugins to be used as a Service Locator
+  - utils - Utility functions
+  - index.ts - Entry point for your Elysia server, ideal place for setting global plugin
+  - types.d.ts - Shared TypeScript type
 
 ## Links
 
