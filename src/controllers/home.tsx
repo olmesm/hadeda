@@ -8,8 +8,8 @@ export const home = new Elysia({ prefix: "/" })
     return html(
       <Layout>
         <p>
-          <a href="https://www.facebook.com/watch/?v=349634689158696" safe>
-            {user ? `${user.firstName}, please don't` : `Don't`} tell Pharrell.
+          <a href="https://www.facebook.com/watch/?v=349634689158696">
+            Don't`tell Pharrell.
           </a>
         </p>
 

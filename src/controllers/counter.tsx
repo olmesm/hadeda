@@ -9,7 +9,10 @@ export const counter = new Elysia({ prefix: "/counter" })
       (await db.counter.create({ data: { count: 0 } }))
 
     return html(
-      <>
+      <article>
+        <p>
+          Clicked <span id="count">{counter.count}</span> times
+        </p>
         <button
           hx-post="/counter/clicked"
           hx-trigger="click"
@@ -18,11 +21,7 @@ export const counter = new Elysia({ prefix: "/counter" })
         >
           Click Me!
         </button>
-
-        <p>
-          Clicked: <span id="count">{counter.count}</span>
-        </p>
-      </>,
+      </article>,
     )
   })
   .post("/clicked", async ({ html, db }) => {

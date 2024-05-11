@@ -5,10 +5,34 @@ import { sessionHelpers } from "../services/auth/session-helpers"
 
 export const user = new Elysia({ prefix: "/user" })
   .use(services)
-  .get("/sign-up", ({ html }) =>
-    html(
+  .get("/", ({ html, user }) => {
+    return html(
+      <details class="dropdown">
+        <summary>{user?.firstName ?? "Sign in"}</summary>
+        {user ? (
+          <ul dir="rtl">
+            <li>
+              <a href="#" hx-post="/user/sign-out">
+                Sign out
+              </a>
+            </li>
+          </ul>
+        ) : (
+          <ul dir="rtl">
+            <li>
+              <a href="/user/sign-up">Sign up</a>
+            </li>
+            <li>
+              <a href="/user/sign-in">Sign in</a>
+            </li>
+          </ul>
+        )}
+      </details>,
+    )
+  })
+  .get("/sign-up", ({ html }) => {
+    return html(
       <Layout>
-        <h1>Sign up</h1>
         <form hx-post="/user/sign-up">
           <fieldset class="grid">
             <label for="firstName">
@@ -36,13 +60,11 @@ export const user = new Elysia({ prefix: "/user" })
           <input type="submit" />
         </form>
       </Layout>,
-    ),
-  )
+    )
+  })
   .post(
     "/sign-up",
-    async ({ set, body, db, cookie }) => {
-      // validate
-
+    async ({ html, set, body, db, cookie }) => {
       const passwordHash = await Bun.password.hash(body.password)
 
       const user = await db.user.create({
@@ -56,7 +78,8 @@ export const user = new Elysia({ prefix: "/user" })
 
       await sessionHelpers.create(cookie, user.id)
 
-      return (set.redirect = "/")
+      set.headers["hx-redirect"] = "/"
+      return <>OK</>
     },
     {
       body: t.Object({
@@ -78,3 +101,64 @@ export const user = new Elysia({ prefix: "/user" })
       }),
     },
   )
+  .get("/sign-in", ({ html }) => {
+    return html(
+      <Layout>
+        <form hx-post="/user/sign-in">
+          <fieldset class="grid">
+            <label for="email">
+              Email
+              <input id="email" name="email" />
+            </label>
+
+            <label for="password">
+              Password
+              <input type="password" id="password" name="password" />
+            </label>
+          </fieldset>
+
+          <input type="submit" />
+        </form>
+      </Layout>,
+    )
+  })
+  .post(
+    "/sign-in",
+    async ({ html, set, body, db, cookie }) => {
+      const user = await db.user.findFirst({
+        where: {
+          email: body.email,
+        },
+      })
+      if (!user) return
+
+      const isMatch = await Bun.password.verify(
+        body.password,
+        user?.passwordHash,
+      )
+
+      if (!isMatch) return
+
+      await sessionHelpers.create(cookie, user.id)
+
+      set.headers["hx-redirect"] = "/"
+      return <>OK</>
+    },
+    {
+      body: t.Object({
+        email: t.String({
+          format: "email",
+        }),
+        password: t.String({
+          minLength: 8,
+          maxLength: 64,
+        }),
+      }),
+    },
+  )
+  .post("/sign-out", async ({ html, request, cookie, set }) => {
+    await sessionHelpers.destroy(request, cookie)
+
+    set.headers["hx-redirect"] = "/"
+    return <>OK</>
+  })

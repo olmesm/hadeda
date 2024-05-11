@@ -1,4 +1,4 @@
-import { Children } from "@kitajs/html"
+import { Children, Fragment } from "@kitajs/html"
 
 export const Base = ({ children }: { children?: Children }) => (
   <>
@@ -24,16 +24,13 @@ export const Layout = ({ children }: { children?: Children }) => (
       <nav>
         <ul>
           <li>
-            <strong>🐦 Hadeda</strong>
+            <a class="contrast" href="/">
+              <strong>🐦 Hadeda</strong>
+            </a>
           </li>
         </ul>
         <ul>
-          <li>
-            <a href="/user/sign-up">Sign up</a>
-          </li>
-          <li>
-            <a href="/user/sign-in">Sign in</a>
-          </li>
+          <li hx-get="/user" hx-trigger="load" hx-swap="innerHTML"></li>
         </ul>
       </nav>
       {children}
