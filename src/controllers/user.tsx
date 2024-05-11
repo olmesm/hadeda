@@ -86,7 +86,7 @@ export const user = new Elysia({ prefix: "/user" })
         await sessionHelpers.create(cookie, user.id)
 
         set.headers["hx-redirect"] = "/"
-        return <>OK</>
+        return
       } catch (e) {
         set.status = "Conflict"
 
@@ -185,9 +185,9 @@ export const user = new Elysia({ prefix: "/user" })
       }),
     },
   )
-  .post("/sign-out", async ({ html, request, cookie, set }) => {
+  .post("/sign-out", async ({ request, cookie, set }) => {
     await sessionHelpers.destroy(request, cookie)
 
     set.headers["hx-redirect"] = "/"
-    return <>OK</>
+    return
   })
