@@ -33,8 +33,6 @@ export const user = new Elysia({ prefix: "/user" })
   .get("/sign-up", ({ html }) => {
     return html(
       <Layout>
-        <div id="form-errors" class="pico-color-pink" />
-
         <form
           hx-post="/user/sign-up"
           hx-ext="response-targets"
@@ -62,6 +60,8 @@ export const user = new Elysia({ prefix: "/user" })
               <input required type="password" id="password" name="password" />
             </label>
           </fieldset>
+
+          <section id="form-errors" class="pico-color-pink" />
 
           <input type="submit" />
         </form>
@@ -120,8 +120,6 @@ export const user = new Elysia({ prefix: "/user" })
   .get("/sign-in", ({ html }) => {
     return html(
       <Layout>
-        <div id="form-errors" class="pico-color-pink" />
-
         <form
           hx-post="/user/sign-in"
           hx-ext="response-targets"
@@ -138,6 +136,8 @@ export const user = new Elysia({ prefix: "/user" })
               <input required type="password" id="password" name="password" />
             </label>
           </fieldset>
+
+          <section id="form-errors" class="pico-color-pink" />
 
           <input type="submit" />
         </form>
