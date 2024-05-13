@@ -9,7 +9,6 @@ The goal is to achieve something akin to Ruby on Rails' level of productivity an
 - [x] Flexibility on DB choice (due to prisma)
 - [x] typesafe
 - [x] hot reload
-- [ ] authentication & authorization
 
 ## Uses
 
