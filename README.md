@@ -51,6 +51,10 @@ bunx prisma migrate dev --name "init" --preview-feature
 
 # Schema push
 bun run db:push
+
+--- Docker
+# Apple arm/Mx chip
+docker build --build-arg="CHIPSET_ARCH=aarch64-linux-gnu" -t <tag> .
 ```
 
 ## Structure

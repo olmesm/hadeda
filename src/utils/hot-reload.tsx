@@ -10,8 +10,10 @@ export const HotReloadScript = ({
   url = "ws://localhost:3000/ws",
 }) => (
   <>
-    {process.env.NODE_ENV === "development" && (
+    {process.env.NODE_ENV === "development" ? (
       <script>{`(${script})(${delayMs}, "${url}")`}</script>
+    ) : (
+      ""
     )}
   </>
 )

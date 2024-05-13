@@ -18,7 +18,7 @@
     "@lucia-auth/adapter-prisma": "^4.0.1",
     "@node-rs/argon2": "^1.8.3",
     "@picocss/pico": "^2.0.6",
-    "@prisma/client": "^5.13.0",
+    "@prisma/client": "5.13.0",
     "@total-typescript/ts-reset": "^0.5.1",
     "elysia": "latest",
     "htmx.org": "^1.9.12",
@@ -30,7 +30,7 @@
     "bun-types": "latest",
     "concurrently": "^8.2.2",
     "prettier": "^3.2.5",
-    "prisma": "^5.13.0"
+    "prisma": "5.13.0"
   },
   "module": "src/index.js"
 }
