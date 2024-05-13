@@ -10,7 +10,7 @@ export const home = new Elysia({ prefix: "/" })
         <div class="grid">
           <article>
             <a href="https://www.facebook.com/watch/?v=349634689158696">
-              Don't tell Pharrell
+              Don't tell Pharrell!
             </a>
           </article>
 

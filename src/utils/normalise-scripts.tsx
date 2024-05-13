@@ -1,4 +1,4 @@
-type ScriptDefinition = {
+export type ScriptDefinition = {
   filePath: string
   type: "css" | "js"
   url?: string
@@ -7,8 +7,7 @@ type ScriptDefinition = {
 
 type ScriptObject = ScriptDefinition & { url: string }
 
-export const normaliseScripts = (scripts: ScriptDefinition[]): ScriptObject[] =>
-  scripts.map((script) => ({
-    ...script,
-    url: script.url ?? "/assets/" + script.filePath.split("/").at(-1)!,
-  }))
+export const normaliseScript = (script: ScriptDefinition): ScriptObject => ({
+  ...script,
+  url: script.url ?? `/assets/${script.filePath.split("/").at(-1)!}`,
+})

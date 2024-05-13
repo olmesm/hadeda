@@ -1,8 +1,13 @@
 import { Elysia } from "elysia"
 import { services } from "./services"
 import { controllers } from "./controllers"
+import { hotReload } from "./utils/hot-reload"
 
-const app = new Elysia().use(services).use(controllers).listen(3000)
+const app = new Elysia()
+  .use(hotReload)
+  .use(services)
+  .use(controllers)
+  .listen(process.env.PORT ?? 3000)
 
 console.log(
   `🐦 Hadeda is running at http://${app.server?.hostname}:${app.server?.port}`,

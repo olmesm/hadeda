@@ -1,8 +1,8 @@
 import { Elysia } from "elysia"
 import { staticPlugin } from "@elysiajs/static"
-import { scripts } from "../components/layout"
+import { staticScripts } from "../components/head-scripts"
 
-export const staticAssets = scripts.reduce(
+export const staticAssets = staticScripts.reduce(
   (elysia, script) => elysia.get(script.url, () => Bun.file(script.filePath)),
   new Elysia().use(staticPlugin()),
 )

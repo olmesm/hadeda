@@ -4,7 +4,12 @@ Modern Hypermedia Driven Application (HDA) Stack. Heavily inspired by BETH stack
 
 The goal is to achieve something akin to Ruby on Rails' level of productivity and DX.
 
-https://htmx.org/essays/web-security-basics-with-htmx/
+## Features
+
+- [x] Flexibility on DB choice (due to prisma)
+- [x] typesafe
+- [x] hot reload
+- [ ] authentication & authorization
 
 ## Uses
 
@@ -13,19 +18,13 @@ https://htmx.org/essays/web-security-basics-with-htmx/
 - [x] typescript
 - [x] prisma
 - [x] htmx
-- [x] alpine.js
+- [x] \_hyperscript
 - [x] lucia
-
-## Features
-
-- [x] Flexibility on DB choice (due to prisma)
-- [x] typesafe
-- [ ] hot reload
-- [ ] authentication & authorization
 
 ## Development
 
 ```bash
+--- Getting Started
 # Copy .env file and fill out the values
 cp .env.example .env
 
@@ -42,29 +41,18 @@ bun dev
 
 # Format schema and code
 bun fmt
-```
 
-### DB
+--- DB Scripts
 
-```bash
+# Studio
+bun run db:studio
+
 # Migrations
 bunx prisma migrate dev --name "init" --preview-feature
 
 # Schema push
 bun run db:push
-
-
-# Studio
-bun run db:studio
 ```
-
-## Generators
-
-TBD
-
-## Deployment
-
-TBD
 
 ## Structure
 
@@ -77,8 +65,19 @@ TBD
   - index.ts - Entry point for your Elysia server, ideal place for setting global plugin
   - types.d.ts - Shared TypeScript type
 
-## Links
+## Generators
 
+TBD
+
+## Deployment
+
+TBD
+
+## Other Resources & Links
+
+- https://htmx.org/essays/web-security-basics-with-htmx/
+- https://github.com/ethanniser/the-beth-stack/
+- https://github.com/ethanniser/beth-big/
 - https://github.com/mikestefanello/pagoda
 - https://github.com/koutyuke/Elysia_Lucia-auth_Example
 - https://docs.gocopper.dev/
