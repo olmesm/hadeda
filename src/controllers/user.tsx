@@ -5,8 +5,8 @@ import { sessionHelpers } from "../services/auth/session-helpers"
 
 export const user = new Elysia({ prefix: "/user" })
   .use(services)
-  .get("/", ({ html, user }) => {
-    return html(
+  .get("/", ({ user }) => {
+    return (
       <details class="dropdown">
         <summary>{user?.firstName ?? "Sign in"}</summary>
         {user ? (
@@ -27,47 +27,45 @@ export const user = new Elysia({ prefix: "/user" })
             </li>
           </ul>
         )}
-      </details>,
+      </details>
     )
   })
-  .get("/sign-up", ({ html }) => {
-    return html(
-      <Layout>
-        <form
-          hx-post="/user/sign-up"
-          hx-ext="response-targets"
-          hx-target-error="#form-errors"
-        >
-          <fieldset class="grid">
-            <label for="firstName">
-              First Name
-              <input required id="firstName" name="firstName" />
-            </label>
-            <label for="lastName">
-              Last Name
-              <input required id="lastName" name="lastName" />
-            </label>
-          </fieldset>
+  .get("/sign-up", ({}) => (
+    <Layout>
+      <form
+        hx-post="/user/sign-up"
+        hx-ext="response-targets"
+        hx-target-error="#form-errors"
+      >
+        <fieldset class="grid">
+          <label for="firstName">
+            First Name
+            <input required id="firstName" name="firstName" />
+          </label>
+          <label for="lastName">
+            Last Name
+            <input required id="lastName" name="lastName" />
+          </label>
+        </fieldset>
 
-          <fieldset class="grid">
-            <label for="email">
-              Email
-              <input required id="email" name="email" />
-            </label>
+        <fieldset class="grid">
+          <label for="email">
+            Email
+            <input required id="email" name="email" />
+          </label>
 
-            <label for="password">
-              Password
-              <input required type="password" id="password" name="password" />
-            </label>
-          </fieldset>
+          <label for="password">
+            Password
+            <input required type="password" id="password" name="password" />
+          </label>
+        </fieldset>
 
-          <section id="form-errors" class="pico-color-pink" />
+        <section id="form-errors" class="pico-color-pink" />
 
-          <input type="submit" />
-        </form>
-      </Layout>,
-    )
-  })
+        <input type="submit" />
+      </form>
+    </Layout>
+  ))
   .post(
     "/sign-up",
     async ({ set, body, db, cookie }) => {
@@ -117,33 +115,31 @@ export const user = new Elysia({ prefix: "/user" })
       }),
     },
   )
-  .get("/sign-in", ({ html }) => {
-    return html(
-      <Layout>
-        <form
-          hx-post="/user/sign-in"
-          hx-ext="response-targets"
-          hx-target-error="#form-errors"
-        >
-          <fieldset class="grid">
-            <label for="email">
-              Email
-              <input required id="email" name="email" />
-            </label>
+  .get("/sign-in", () => (
+    <Layout>
+      <form
+        hx-post="/user/sign-in"
+        hx-ext="response-targets"
+        hx-target-error="#form-errors"
+      >
+        <fieldset class="grid">
+          <label for="email">
+            Email
+            <input required id="email" name="email" />
+          </label>
 
-            <label for="password">
-              Password
-              <input required type="password" id="password" name="password" />
-            </label>
-          </fieldset>
+          <label for="password">
+            Password
+            <input required type="password" id="password" name="password" />
+          </label>
+        </fieldset>
 
-          <section id="form-errors" class="pico-color-pink" />
+        <section id="form-errors" class="pico-color-pink" />
 
-          <input type="submit" />
-        </form>
-      </Layout>,
-    )
-  })
+        <input type="submit" />
+      </form>
+    </Layout>
+  ))
   .post(
     "/sign-in",
     async ({ set, body, db, cookie }) => {

@@ -2,8 +2,8 @@ import { Elysia } from "elysia"
 
 export const hotReload =
   process.env.NODE_ENV === "development"
-    ? new Elysia().ws("/ws", {})
-    : new Elysia()
+    ? new Elysia({ name: "hot-reload" }).ws("/ws", {})
+    : new Elysia({ name: "hot-reload" })
 
 export const HotReloadScript = ({
   delayMs = 150,

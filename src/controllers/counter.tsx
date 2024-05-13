@@ -3,12 +3,12 @@ import { services } from "../services"
 
 export const counter = new Elysia({ prefix: "/counter" })
   .use(services)
-  .get("/", async ({ html, db }) => {
+  .get("/", async ({ db }) => {
     const counter =
       (await db.counter.findFirst()) ??
       (await db.counter.create({ data: { count: 0 } }))
 
-    return html(
+    return (
       <article>
         <p>
           Clicked <span id="count">{counter.count}</span> times
@@ -21,10 +21,10 @@ export const counter = new Elysia({ prefix: "/counter" })
         >
           Click Me!
         </button>
-      </article>,
+      </article>
     )
   })
-  .post("/clicked", async ({ html, db }) => {
+  .post("/clicked", async ({ db }) => {
     const counter = await db.counter.findFirstOrThrow().then((entity) =>
       db.counter.update({
         where: { id: entity!.id },
@@ -32,5 +32,5 @@ export const counter = new Elysia({ prefix: "/counter" })
       }),
     )
 
-    return html(<span id="count">{counter.count}</span>)
+    return <span id="count">{counter.count}</span>
   })

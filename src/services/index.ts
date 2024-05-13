@@ -5,7 +5,7 @@ import { auth } from "./auth"
 import { sessionHelpers } from "./auth/session-helpers"
 
 export const services = new Elysia({ name: "services" })
-  .use(html())
+  .use(html({ autoDoctype: false }))
   .decorate("db", db)
   .decorate("auth", auth)
   .derive(
