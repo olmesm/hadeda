@@ -51,10 +51,6 @@ bunx prisma migrate dev --name "init" --preview-feature
 
 # Schema push
 bun run db:push
-
---- Docker
-# Apple arm/Mx chip
-docker build --build-arg="CHIPSET_ARCH=aarch64-linux-gnu" -t <tag> .
 ```
 
 ## Structure
@@ -78,6 +74,8 @@ TBD
 
 ## Other Resources & Links
 
+- [Transactions and batch queries](https://www.prisma.io/docs/orm/prisma-client/queries/transactions)
+- [How Prisma Supports Database Transactions](https://www.prisma.io/blog/how-prisma-supports-transactions-x45s1d5l0ww1)
 - https://htmx.org/essays/web-security-basics-with-htmx/
 - https://github.com/ethanniser/the-beth-stack/
 - https://github.com/ethanniser/beth-big/

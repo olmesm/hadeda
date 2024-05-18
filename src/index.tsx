@@ -1,5 +1,5 @@
 import { Elysia } from "elysia"
-import { services } from "./services"
+import { services } from "./services/middleware"
 import { controllers } from "./controllers"
 import { hotReload } from "./utils/hot-reload"
 

@@ -1,17 +1,14 @@
 import { Elysia } from "elysia"
-import { services } from "../services"
+import { services } from "../services/middleware"
+import { counterModel } from "../models/counter"
 
 export const counter = new Elysia({ prefix: "/counter" })
   .use(services)
-  .get("/", async ({ db }) => {
-    const counter =
-      (await db.counter.findFirst()) ??
-      (await db.counter.create({ data: { count: 0 } }))
-
+  .get("/", async () => {
     return (
       <article>
         <p>
-          Clicked <span id="count">{counter.count}</span> times
+          Clicked <span id="count">{counterModel.value()}</span> times
         </p>
         <button
           hx-post="/counter/clicked"
@@ -24,13 +21,6 @@ export const counter = new Elysia({ prefix: "/counter" })
       </article>
     )
   })
-  .post("/clicked", async ({ db }) => {
-    const counter = await db.counter.findFirstOrThrow().then((entity) =>
-      db.counter.update({
-        where: { id: entity!.id },
-        data: { count: (entity!.count ?? 0) + 1 },
-      }),
-    )
-
-    return <span id="count">{counter.count}</span>
+  .post("/clicked", async () => {
+    return <span id="count">{counterModel.increment()}</span>
   })

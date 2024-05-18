@@ -1,7 +1,8 @@
 import { Elysia, t } from "elysia"
-import { services } from "../services"
+import { services } from "../services/middleware"
 import { Layout } from "../components/layout"
 import { sessionHelpers } from "../services/auth/session-helpers"
+import { userModel } from "../models/user"
 
 export const user = new Elysia({ prefix: "/user" })
   .use(services)
@@ -68,18 +69,9 @@ export const user = new Elysia({ prefix: "/user" })
   ))
   .post(
     "/sign-up",
-    async ({ set, body, db, cookie }) => {
+    async ({ set, body, cookie }) => {
       try {
-        const passwordHash = await Bun.password.hash(body.password)
-
-        const user = await db.user.create({
-          data: {
-            email: body.email,
-            firstName: body.firstName,
-            lastName: body.lastName,
-            passwordHash,
-          },
-        })
+        const user = await userModel.create(body)
 
         await sessionHelpers.create(cookie, user.id)
 
@@ -142,28 +134,15 @@ export const user = new Elysia({ prefix: "/user" })
   ))
   .post(
     "/sign-in",
-    async ({ set, body, db, cookie }) => {
-      const user = await db.user.findFirst({
-        where: {
-          email: body.email,
-        },
-      })
-      if (!user) {
+    async ({ set, body, cookie }) => {
+      const maybeUser = await userModel.login(body)
+
+      if (maybeUser instanceof Error) {
         set.status = "Unprocessable Content"
-        return "Invalid details"
+        return maybeUser.message
       }
 
-      const isMatch = await Bun.password.verify(
-        body.password,
-        user?.passwordHash,
-      )
-
-      if (!isMatch) {
-        set.status = "Unprocessable Content"
-        return "Invalid details"
-      }
-
-      await sessionHelpers.create(cookie, user.id)
+      await sessionHelpers.create(cookie, maybeUser.id)
 
       set.headers["hx-redirect"] = "/"
       return <>OK</>

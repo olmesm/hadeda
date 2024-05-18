@@ -1,5 +1,5 @@
 import { Elysia } from "elysia"
-import { services } from "../services"
+import { services } from "../services/middleware"
 import { Layout } from "../components/layout"
 
 export const home = new Elysia({ prefix: "/" })
