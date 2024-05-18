@@ -1,8 +1,20 @@
 # 🐦 Hadeda
 
-Modern Hypermedia Driven Application (HDA) Stack. Heavily inspired by BETH stack and the thoughts of HTMX.
+Modern Hypermedia Driven Application (HDA) Stack. Heavily inspired by BETH stack and the thoughts of HTMX, and this video [From React To HTMX](https://www.youtube.com/watch?v=wIzwyyHolRs)
 
 The goal is to achieve something akin to Ruby on Rails' level of productivity and DX.
+
+## Quick start Resources
+
+- https://dev.to/alexmercedcoder/what-is-htmx-why-it-matters-and-how-to-use-it-10h3
+- https://www.youtube.com/watch?v=cpzowDDJj24
+- https://refine.dev/blog/what-is-htmx/
+
+## TODO
+
+- [ ] Improve htmx typesafety
+- [ ] Develop plugin system
+- [ ] glob import generation of barrel files for models and conntrollers
 
 ## Features
 
