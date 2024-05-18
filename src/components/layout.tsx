@@ -1,5 +1,5 @@
 import { Children } from "@kitajs/html"
-import { HeadScripts } from "./head-scripts"
+import { HeadScripts } from "../_plugins/html"
 
 export const Base = ({ children }: { children?: Children }) => (
   <html lang="en">
