@@ -12,8 +12,8 @@ The goal is to achieve something akin to Ruby on Rails' level of productivity an
 
 ## TODO
 
+- [x] Develop plugin system
 - [ ] Improve htmx typesafety
-- [ ] Develop plugin system
 - [ ] glob import generation of barrel files for models and conntrollers
 
 ## Features
@@ -21,6 +21,7 @@ The goal is to achieve something akin to Ruby on Rails' level of productivity an
 - [x] Flexibility on DB choice (due to prisma)
 - [x] typesafe
 - [x] hot reload
+- [x] Plugins - tailwind, picocss, alpinejs, \_hyperscript - see [all plugins here.](src/_plugins)
 
 ## Uses
 

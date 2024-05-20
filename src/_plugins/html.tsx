@@ -3,9 +3,16 @@ import { hotReloadScript } from "./hot-reload"
 import htmx from "./htmx"
 import hyperscript from "./hyperscript"
 import picocss from "./picocss"
+// import tailwind from "./tailwind"
 
 export const staticScripts = ([] as ScriptDefinition[])
-  .concat(htmx, hyperscript, picocss, hotReloadScript({}))
+  .concat(
+    htmx,
+    hyperscript,
+    picocss,
+    // tailwind,
+    hotReloadScript({}),
+  )
   .map(normaliseScript)
 
 export const HeadScripts = ({

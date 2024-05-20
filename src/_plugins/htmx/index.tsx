@@ -1,4 +1,4 @@
-import { ScriptDefinition } from "../utils/normalise-scripts"
+import type { ScriptDefinition } from "../utils/normalise-scripts"
 
 export default [
   {
