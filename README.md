@@ -13,7 +13,7 @@ The goal is to achieve something akin to Ruby on Rails' level of productivity an
 ## TODO
 
 - [x] Develop plugin system
-- [ ] Improve htmx typesafety
+- [x] Improve htmx typesafety
 - [ ] glob import generation of barrel files for models and conntrollers
 
 ## Features
