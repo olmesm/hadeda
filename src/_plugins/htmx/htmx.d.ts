@@ -186,36 +186,6 @@ declare namespace Htmx {
    */
   interface Attributes {
     /**
-     * Issues a `GET` to the specified URL.
-     * @see https://htmx.org/attributes/hx-get/
-     */
-    ["hx-get"]?: string
-
-    /**
-     * Issues a `POST` to the specified URL.
-     * @see https://htmx.org/attributes/hx-post/
-     */
-    ["hx-post"]?: string
-
-    /**
-     * Issues a `PUT` to the specified URL.
-     * @see https://htmx.org/attributes/hx-put/
-     */
-    ["hx-put"]?: string
-
-    /**
-     * Issues a `DELETE` to the specified URL.
-     * @see https://htmx.org/attributes/hx-delete/
-     */
-    ["hx-delete"]?: string
-
-    /**
-     * Issues a `PATCH` to the specified URL.
-     * @see https://htmx.org/attributes/hx-patch/
-     */
-    ["hx-patch"]?: string
-
-    /**
      * Add or remove [progressive enhancement] for links and forms.
      * @see https://htmx.org/attributes/hx-boost/
      *

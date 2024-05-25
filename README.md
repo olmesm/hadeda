@@ -97,3 +97,11 @@ TBD
 - https://docs.gocopper.dev/
 - https://gobuffalo.io/documentation/getting_started/directory-structure/
 - https://bun.sh/guides/util/hash-a-password
+
+<!--
+https://github.com/gtramontina/elysia-htmx
+https://github.com/gtrabanco/elysia-inject-html
+https://github.com/gtrabanco/elysia-hmr-html
+https://github.com/yfrans/elysia-http-error
+
+-->
