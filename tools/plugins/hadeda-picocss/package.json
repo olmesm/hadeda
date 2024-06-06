@@ -1,0 +1,16 @@
+{
+  "name": "hadeda-picocss",
+  "version": "0.0.0",
+  "types": "types.d.ts",
+  "exports": {
+    "./client": {
+      "import": "./client.ts"
+    },
+    "./server": {
+      "import": "./server.ts"
+    }
+  },
+  "dependencies": {
+    "@picocss/pico": "^2.0.6"
+  }
+}

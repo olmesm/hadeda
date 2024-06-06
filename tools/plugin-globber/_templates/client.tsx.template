@@ -1,0 +1,36 @@
+import { ScriptDefinition, normaliseScript } from "./normalise-scripts"
+{{{ imports }}}
+
+export const clientScripts = ([] as ScriptDefinition[])
+  .concat(
+{{{ uses }}}
+  )
+  .map(normaliseScript)
+
+export const HeadScripts = ({
+  scripts = clientScripts,
+}: {
+  scripts?: ScriptDefinition[]
+}) => (
+  <>
+    {scripts.map((script) => {
+      const safeHtml: JSX.Element[] = []
+
+      if (script.url) {
+        safeHtml.push(
+          script.type === "js" ? (
+            <script src={script.url} {...script.props}></script>
+          ) : (
+            <link rel="stylesheet" href={script.url} {...script.props} />
+          ),
+        )
+      }
+
+      if (script.headerInitialization) {
+        safeHtml.push(script.headerInitialization)
+      }
+
+      return <>{safeHtml.join("") as "safe"}</>
+    })}
+  </>
+)

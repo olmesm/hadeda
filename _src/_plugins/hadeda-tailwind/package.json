@@ -1,0 +1,17 @@
+{
+  "name": "hadeda-tailwind",
+  "version": "0.0.0",
+  "types": "types.d.ts",
+  "exports": {
+    "./client": {
+      "import": "./client.ts"
+    },
+    "./server": {
+      "import": "./server.ts"
+    }
+  },
+  "dependencies": {
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
+  }
+}

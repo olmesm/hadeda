@@ -1,0 +1,16 @@
+{
+  "name": "hadeda-htmx",
+  "version": "0.0.0",
+  "types": "types.d.ts",
+  "exports": {
+    "./client": {
+      "import": "./client.ts"
+    },
+    "./server": {
+      "import": "./server.ts"
+    }
+  },
+  "dependencies": {
+    "htmx.org": "^1.9.12"
+  }
+}

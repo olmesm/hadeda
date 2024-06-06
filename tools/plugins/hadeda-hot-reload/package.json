@@ -1,0 +1,16 @@
+{
+  "name": "hadeda-hot-reload",
+  "version": "0.0.0",
+  "types": "types.d.ts",
+  "exports": {
+    "./client": {
+      "import": "./client.ts"
+    },
+    "./server": {
+      "import": "./server.ts"
+    }
+  },
+  "peerDependencies": {
+    "elysia": "latest"
+  }
+}

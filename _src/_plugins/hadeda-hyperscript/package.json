@@ -1,0 +1,16 @@
+{
+  "name": "hadeda-hyperscript",
+  "version": "0.0.0",
+  "types": "types.d.ts",
+  "exports": {
+    "./client": {
+      "import": "./client.ts"
+    },
+    "./server": {
+      "import": "./server.ts"
+    }
+  },
+  "dependencies": {
+    "hyperscript.org": "^0.9.12"
+  }
+}

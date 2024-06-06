@@ -1,0 +1,5 @@
+import type { PropsWithChildren } from "@kitajs/html"
+
+type Props = PropsWithChildren<{}>
+
+export default (props: Props) => <>Page for {{ entities }} {{ type }}</>

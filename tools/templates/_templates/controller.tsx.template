@@ -1,0 +1,72 @@
+import { t, Elysia } from "elysia"
+
+const params = t.Object({ id: t.String() })
+
+/**
+ * Display a list of resource
+ */
+export const index = new Elysia({ name: "app/{{ kebabCased }}/index" }).get(
+  "/",
+  async () => {},
+)
+
+/**
+ * Display form to create a new record
+ */
+export const create = new Elysia({ name: "app/{{ kebabCased }}/create" }).get(
+  "/new",
+  async () => {},
+)
+
+/**
+ * Handle form submission for the create action
+ */
+export const store = new Elysia({ name: "app/{{ kebabCased }}/store" }).post(
+  "/",
+  async () => {},
+)
+
+/**
+ * Show individual record
+ */
+export const show = new Elysia({ name: "app/{{ kebabCased }}/show" }).get(
+  "/:id",
+  async () => {},
+  { params },
+)
+
+/**
+ * Display form to edit individual record
+ */
+export const edit = new Elysia({ name: "app/{{ kebabCased }}/edit" }).get(
+  "/:id/edit",
+  async () => {},
+  { params },
+)
+
+/**
+ * Handle form submission for the edit action
+ */
+export const update = new Elysia({ name: "app/{{ kebabCased }}/update" }).put(
+  "/:id",
+  async () => {},
+  { params },
+)
+
+/**
+ * Delete record
+ */
+export const destroy = new Elysia({ name: "app/{{ kebabCased }}/destroy" }).delete(
+  "/:id",
+  async () => { },
+  { params }
+)
+
+export const resource = new Elysia({ name: "app/{{ kebabCased }}/resource" })
+  .use(index)
+  .use(create)
+  .use(store)
+  .use(show)
+  .use(edit)
+  .use(update)
+  .use(destroy)
